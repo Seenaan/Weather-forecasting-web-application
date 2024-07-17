@@ -15,7 +15,7 @@ body{
     font-family: 'Poppins', sans-serif;
 }
 .weather-clear {
-    background: url(images/clear.jpg); /* Light blue for clear weather */
+    background: url(images/clearsky.jpg); 
     background-repeat: no-repeat;
     background-size:cover;
     overflow:hidden;
@@ -24,7 +24,7 @@ body{
 }
 
 .weather-clouds {
-    background: url(images/cloud.jpg); /* Gray for cloudy weather */
+    background: url(images/cloud.jpg); 
     background-repeat: no-repeat;
     background-size:cover;
     overflow:hidden;
@@ -33,7 +33,7 @@ body{
 }
 
 .weather-rain {
-    background: url(images/rain.jpg); /* Blueish for rain */
+    background: url(images/rain.jpg); 
     background-repeat: no-repeat;
     background-size:cover;
     overflow:hidden;
@@ -42,7 +42,7 @@ body{
 }
 
 .weather-thunderstorm {
-    background: url(images/thunder.jpg); /* Dark gray for thunderstorm */
+    background: url(images/thunder.jpg); 
     background-repeat: no-repeat;
     background-size:cover;
     overflow:hidden;
@@ -51,7 +51,7 @@ body{
 }
 
 .weather-snow {
-    background: url(images/snow.jpg); /* Light blue for snow */
+    background: url(images/snow.jpg); 
     background-repeat: no-repeat;
     background-size:cover;
     overflow:hidden;
