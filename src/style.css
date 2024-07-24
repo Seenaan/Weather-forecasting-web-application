@@ -10,7 +10,7 @@
 
 /* Styles for the body element */
 body {
-    background: url(images/main.jpg); /* Background image */
+   
     background-repeat: no-repeat; /* No repeat of the background image */
     background-size: cover; /* Cover the entire viewport */
     overflow: hidden; /* Prevent scrollbars */
@@ -20,32 +20,32 @@ body {
 
 /* Background styles for various weather conditions */
 .weather-very-hot {
-    background: url('images/veryhot.jpg') no-repeat center center fixed; /* Fixed background image */
+    background: url('/images/veryhot.jpg') no-repeat center center fixed; /* Fixed background image */
     background-size: cover; /* Cover the entire container */
 }
 
 .weather-hot {
-    background: url('images/hot.jpg') no-repeat center center fixed;
+    background: url('/images/hot.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
 .weather-warm {
-    background: url('images/warm.jpg') no-repeat center center fixed;
+    background: url('/images/warm.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
 .weather-cool {
-    background: url('images/cool.jpg') no-repeat center center fixed;
+    background: url('/images/cool.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
 .weather-cold {
-    background: url('images/cold.jpg') no-repeat center center fixed;
+    background: url('/images/cold.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
 .weather-very-cold {
-    background: url('images/verycold.jpg') no-repeat center center fixed;
+    background: url('/images/verycold.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
