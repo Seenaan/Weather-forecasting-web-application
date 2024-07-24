@@ -8,7 +8,7 @@ const fetchMock = require('jest-fetch-mock');
 fetchMock.enableMocks();
 
 // Read and load HTML content from index.html using JSDOM
-const html = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
+const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf8');
 const dom = new JSDOM(html, { runScripts: 'dangerously' });
 const { document } = dom.window;
 
