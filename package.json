@@ -1,0 +1,25 @@
+{
+  "name": "weather-forecasting-web-application",
+  "version": "1.0.0",
+  "description": "![Weather App Screenshot](/images/screenshot1.png)",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom",
+    "setupFiles": [
+      "./tests/jest.setup.js"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
+    "jsdom": "^24.1.1",
+    "text-encoding": "^0.7.0"
+  }
+}
