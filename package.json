@@ -2,7 +2,7 @@
   "name": "weather-forecasting-web-application",
   "version": "1.0.0",
   "description": "Weather Forecasting Web Application",
-  "main": "script.js", // Assuming this is your main JavaScript file
+  "main": "script.js", 
   "scripts": {
     "test": "jest"
   },
@@ -27,7 +27,7 @@
     "text-encoding": "^0.7.0"
   },
   "dependencies": {
-    // Remove jest from dependencies as it's a devDependency
+  
   }
 }
 
