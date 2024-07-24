@@ -1,7 +1,10 @@
 module.exports = {
     
     testEnvironment: 'jest-environment-jsdom',
-    setupFiles: ["./tests/jest.setup.js"],
-    setupFilesAfterEnv: ['jest-fetch-mock']
+    setupFiles: ["./jest.setup.js"],
+    setupFilesAfterEnv: ['jest-fetch-mock'],
+    testPathIgnorePatterns: [
+      '/node_modules/',
+      '/tests/jest.setup.js']
   };
   

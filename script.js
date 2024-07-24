@@ -1,6 +1,6 @@
-// Check if the script is running in a browser environment
+// Check if running in a browser environment
 if (typeof document !== 'undefined') {
-    // Get references to HTML elements
+    // DOM Element References
     const timeEl = document.getElementById('time');
     const dateEl = document.getElementById('date');
     const currentWeatherItemsEl = document.getElementById('current-weather-items');
@@ -14,18 +14,19 @@ if (typeof document !== 'undefined') {
     const aboutModal = document.getElementById('aboutModal');
     const closeButton = document.querySelector('.close-button');
 
-    // Define days and months for date formatting
+    // Arrays for Date Formatting
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    // API Key for OpenWeatherMap
+    // OpenWeatherMap API Key (Replace with your actual API key)
     const API_KEY = 'bd5e378503939ddaee76f12ad7a97608';
 
     // Function to handle API requests with retry mechanism
     function fetchWithRetry(url, options = {}, retries = 3, backoff = 3000) {
         return fetch(url, options)
             .then(response => {
-                if (response.status === 429) { // Handle rate limit
+                // Handle rate limit (429 status)
+                if (response.status === 429) {
                     if (retries > 0) {
                         console.log(`Rate limit exceeded. Retrying in ${backoff / 1000} seconds...`);
                         return new Promise(resolve => setTimeout(resolve, backoff))
@@ -34,6 +35,7 @@ if (typeof document !== 'undefined') {
                         throw new Error('Too Many Requests');
                     }
                 }
+                // Handle other network errors
                 if (!response.ok) {
                     throw new Error(`Network response was not ok. Status: ${response.status}`);
                 }
@@ -41,7 +43,7 @@ if (typeof document !== 'undefined') {
             });
     }
 
-    // Function to get weather data by city name
+    // Function to fetch weather data by city name
     function getWeatherDataByCity(city) {
         const trimmedCity = city.trim();
         if (!trimmedCity) {
@@ -78,9 +80,11 @@ if (typeof document !== 'undefined') {
             return;
         }
 
+        // Destructure data object
         const { current, timezone, daily } = data;
         const { humidity, pressure, sunrise, sunset, wind_speed, temp } = current;
 
+        // Update DOM elements with weather information
         timezoneEl.textContent = timezone;
         countryEl.textContent = '';  // Replace with actual country data
 
@@ -114,6 +118,7 @@ if (typeof document !== 'undefined') {
                 <div class="temp">Day - ${daily[0].temp.day}&#176; C</div>
             </div>`;
 
+        // Construct weather forecast HTML
         let forecastHTML = '';
         daily.slice(1).forEach(day => {
             forecastHTML += `
@@ -127,15 +132,13 @@ if (typeof document !== 'undefined') {
         weatherForecastEl.innerHTML = forecastHTML;
 
         // Update background based on current temperature
-        const currentTemperature = temp; // Assuming temp is in Celsius. Adjust if necessary.
+        const currentTemperature = temp;
         updateBackgroundByTemperature(currentTemperature);
     }
 
-    // Function to update the background based on temperature
+    // Function to update background based on temperature
     function updateBackgroundByTemperature(temperature) {
         const body = document.body;
-
-        console.log('Temperature:', temperature);
 
         body.classList.remove('weather-very-hot', 'weather-hot', 'weather-warm', 'weather-cool', 'weather-cold', 'weather-very-cold');
 
@@ -166,8 +169,8 @@ if (typeof document !== 'undefined') {
 
     // Initial weather data load for default city when the document is fully loaded
     document.addEventListener('DOMContentLoaded', function() {
-        const defaultCity = 'Addis Ababa';
-        getWeatherDataByCity(defaultCity);
+        const defaultCity = 'Addis Ababa'; // Default city to load weather data
+        getWeatherDataByCity(defaultCity); // Fetch weather data for default city
     });
 
     // Update time and date every second
@@ -181,12 +184,14 @@ if (typeof document !== 'undefined') {
         const minutes = time.getMinutes();
         const ampm = hour >= 12 ? 'PM' : 'AM';
 
+        // Update time element with current time
         timeEl.innerHTML = `${hoursIn12HrFormat < 10 ? '0' + hoursIn12HrFormat : hoursIn12HrFormat}:${minutes < 10 ? '0' + minutes : minutes} <span id="am-pm">${ampm}</span>`;
         
+        // Update date element with current day, date, and month
         dateEl.innerHTML = `${days[day]}, ${date} ${months[month]}`;
     }, 1000);
 
-    // Event listeners for search button and Enter key
+    // Event listeners for search button click and Enter key press in search input
     searchButtonEl.addEventListener('click', searchWeather);
     searchInputEl.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
@@ -194,16 +199,17 @@ if (typeof document !== 'undefined') {
         }
     });
 
-    // Event listener to open and close the about modal
+    // Event listener to open the about modal
     aboutButton.addEventListener('click', () => {
         aboutModal.style.display = 'block';
     });
 
+    // Event listener to close the about modal
     closeButton.addEventListener('click', () => {
         aboutModal.style.display = 'none';
     });
 
-    // Close the about modal if clicking outside of it
+    // Event listener to close the about modal if clicking outside of it
     window.addEventListener('click', (event) => {
         if (event.target == aboutModal) {
             aboutModal.style.display = 'none';

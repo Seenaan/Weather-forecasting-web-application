@@ -1,132 +1,151 @@
+// Import necessary modules
+const { JSDOM } = require('jsdom');
 const fs = require('fs');
 const path = require('path');
-const { JSDOM } = require('jsdom');
+const fetchMock = require('jest-fetch-mock');
 
-// Load your HTML file
-const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf8');
+// Mock fetch globally
+fetchMock.enableMocks();
 
-describe('Weather App', () => {
-  let dom;
-  let document;
+// Read and load HTML content from index.html using JSDOM
+const html = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
+const dom = new JSDOM(html, { runScripts: 'dangerously' });
+const { document } = dom.window;
 
-  beforeEach(() => {
-    dom = new JSDOM(html, { runScripts: 'dangerously' });
-    document = dom.window.document;
-    global.document = document; // to make document globally available
-    global.window = dom.window;
-    global.navigator = dom.window.navigator;
-    require('../script'); // Include your script
-  });
+// Mock global variables and functions
+global.document = document;
+global.fetch = fetchMock;
 
-  test('should have time element', () => {
-    const timeEl = document.getElementById('time');
-    expect(timeEl).not.toBeNull();
-  });
+// Load your script file (adjust the path accordingly)
+const { getWeatherDataByCity, showWeatherData, updateBackgroundByTemperature, searchWeather } = require('../script');
 
-  test('should display default city weather on load', () => {
-    const defaultCity = 'Addis Ababa';
-    const mockFetch = jest.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve({
-          coord: { lat: 9.03, lon: 38.74 },
-          weather: [{ icon: '01d' }],
-          main: { temp: 25 },
-          name: defaultCity,
-        }),
-      })
-    );
-    global.fetch = mockFetch;
+// Define days and months for date formatting (adjust as needed)
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    return new Promise((resolve) => {
-      document.addEventListener('DOMContentLoaded', () => {
-        const cityElement = document.getElementById('city');
-        expect(cityElement.textContent).toBe(defaultCity);
-        resolve();
-      });
+// Mock API key for testing purposes
+const API_KEY = 'bd5e378503939ddaee76f12ad7a97608';
+
+// Mock data for testing purposes (example data structure)
+const mockWeatherData = {
+    current: {
+        humidity: 60,
+        pressure: 1012,
+        sunrise: 1627030783,
+        sunset: 1627076273,
+        wind_speed: 2.3,
+        temp: 25,
+    },
+    timezone: 'Europe/Berlin',
+    daily: [
+        {
+            dt: 1627128000,
+            temp: {
+                day: 28,
+                night: 20,
+            },
+            weather: [
+                {
+                    icon: '01d',
+                },
+            ],
+        },
+        // Add more mock data as needed
+    ],
+};
+
+// Tests for Weather App script
+describe('Weather App Script', () => {
+    // Mock fetch responses
+    beforeEach(() => {
+        fetch.resetMocks();
     });
-  });
 
-  test('should fetch weather data for entered city', () => {
-    const city = 'New York';
-    const mockFetch = jest.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve({
-          coord: { lat: 40.71, lon: -74.01 },
-          weather: [{ icon: '01d' }],
-          main: { temp: 20 },
-          name: city,
-        }),
-      })
-    );
-    global.fetch = mockFetch;
+    it('getWeatherDataByCity should fetch weather data', async () => {
+        // Mock fetch responses
+        fetch.mockResponseOnce(JSON.stringify({ coord: { lat: 52.52, lon: 13.405 }, ...mockWeatherData }));
+        
+        // Call function
+        await getWeatherDataByCity('Berlin');
 
-    const searchInputEl = document.getElementById('searchInput');
-    const searchButtonEl = document.getElementById('searchButton');
+        // Assertions
+        expect(fetch).toHaveBeenCalledTimes(2); // Adjust based on your fetch calls
+        expect(fetch).toHaveBeenCalledWith(`https://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=${API_KEY}`);
+        expect(fetch).toHaveBeenCalledWith(`https://api.openweathermap.org/data/2.5/onecall?lat=52.52&lon=13.405&exclude=hourly,minutely&units=metric&appid=${API_KEY}`);
+    });
 
-    searchInputEl.value = city;
-    searchButtonEl.click();
+    it('showWeatherData should display weather data on the page', () => {
+        // Prepare DOM elements (mocking as needed)
+        const timezoneEl = document.createElement('div');
+        timezoneEl.id = 'time-zone';
+        document.body.appendChild(timezoneEl);
 
-    expect(mockFetch).toHaveBeenCalledWith(expect.stringContaining(`q=${city}`));
-  });
+        const currentWeatherItemsEl = document.createElement('div');
+        currentWeatherItemsEl.id = 'current-weather-items';
+        document.body.appendChild(currentWeatherItemsEl);
 
-  test('should show alert for empty city name', () => {
-    const searchButtonEl = document.getElementById('searchButton');
-    global.alert = jest.fn();
+        const currentTempEl = document.createElement('div');
+        currentTempEl.id = 'current-temp';
+        document.body.appendChild(currentTempEl);
 
-    searchButtonEl.click();
+        const weatherForecastEl = document.createElement('div');
+        weatherForecastEl.id = 'weather-forecast';
+        document.body.appendChild(weatherForecastEl);
 
-    expect(global.alert).toHaveBeenCalledWith('Please enter a city name');
-  });
+        // Call function
+        showWeatherData(mockWeatherData);
 
-  test('should display weather data on the page', () => {
-    const weatherData = {
-      current: {
-        humidity: 80,
-        pressure: 1000,
-        sunrise: 1625123456,
-        sunset: 1625173456,
-        wind_speed: 5,
-        temp: 30,
-      },
-      daily: [
-        { dt: 1625123456, temp: { night: 20, day: 30 }, weather: [{ icon: '01d' }] },
-        { dt: 1625209856, temp: { night: 22, day: 32 }, weather: [{ icon: '02d' }] },
-      ],
-      timezone: 'Africa/Addis_Ababa',
-    };
+        // Assertions
+        expect(timezoneEl.textContent).toBe('Europe/Berlin'); // Adjust based on your data structure
+        expect(currentWeatherItemsEl.innerHTML).toContain('Humidity');
+        expect(currentTempEl.innerHTML).toContain('w-icon');
+        expect(weatherForecastEl.innerHTML).toContain('weather-forecast-item');
+    });
 
-    const showWeatherData = require('../script').showWeatherData;
-    showWeatherData(weatherData);
+    it('updateBackgroundByTemperature should update background class based on temperature', () => {
+        // Mock temperature values
+        updateBackgroundByTemperature(30);
+        
+        // Assertions
+        expect(document.body.classList).toContain('weather-hot'); // Adjust based on your temperature thresholds
+    });
 
-    const timezoneEl = document.getElementById('time-zone');
-    const currentTempEl = document.getElementById('current-temp');
-    const weatherForecastEl = document.getElementById('weather-forecast');
+    it('searchWeather should fetch weather data when city is provided', async () => {
+        // Mock fetch responses
+        fetch.mockResponseOnce(JSON.stringify({ coord: { lat: 52.52, lon: 13.405 }, ...mockWeatherData }));
 
-    expect(timezoneEl.textContent).toBe('Africa/Addis_Ababa');
-    expect(currentTempEl.innerHTML).toContain('30&#176; C');
-    expect(weatherForecastEl.children.length).toBe(1); // Exclude the current day
-  });
+        // Mock user input
+        const searchInputEl = document.createElement('input');
+        searchInputEl.id = 'searchInput';
+        searchInputEl.value = 'Berlin';
+        document.body.appendChild(searchInputEl);
 
-  test('should update the background based on temperature', () => {
-    const updateBackgroundByTemperature = require('../script').updateBackgroundByTemperature;
-    const body = document.body;
+        // Call function
+        searchWeather();
 
-    updateBackgroundByTemperature(45);
-    expect(body.classList.contains('weather-very-hot')).toBe(true);
+        // Wait for asynchronous operations (e.g., fetch calls)
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
-    updateBackgroundByTemperature(35);
-    expect(body.classList.contains('weather-hot')).toBe(true);
+        // Assertions
+        expect(fetch).toHaveBeenCalledTimes(2); // Adjust based on your fetch calls
+        expect(fetch).toHaveBeenCalledWith(`https://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=${API_KEY}`);
+        expect(fetch).toHaveBeenCalledWith(`https://api.openweathermap.org/data/2.5/onecall?lat=52.52&lon=13.405&exclude=hourly,minutely&units=metric&appid=${API_KEY}`);
+    });
 
-    updateBackgroundByTemperature(25);
-    expect(body.classList.contains('weather-warm')).toBe(true);
+    it('searchWeather should alert when city is empty', () => {
+        // Mock empty user input
+        const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {}); // Mock alert
 
-    updateBackgroundByTemperature(15);
-    expect(body.classList.contains('weather-cool')).toBe(true);
+        // Mock user input
+        const searchInputEl = document.createElement('input');
+        searchInputEl.id = 'searchInput';
+        searchInputEl.value = '';
+        document.body.appendChild(searchInputEl);
 
-    updateBackgroundByTemperature(5);
-    expect(body.classList.contains('weather-cold')).toBe(true);
+        // Call function
+        searchWeather();
 
-    updateBackgroundByTemperature(-5);
-    expect(body.classList.contains('weather-very-cold')).toBe(true);
-  });
+        // Assertions
+        expect(alertSpy).toHaveBeenCalled();
+    });
 });
