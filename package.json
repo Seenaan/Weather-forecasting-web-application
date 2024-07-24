@@ -1,13 +1,13 @@
 {
   "name": "weather-forecasting-web-application",
   "version": "1.0.0",
-  "description": "![Weather App Screenshot](/images/screenshot1.png)",
-  "main": "script.js",
+  "description": "Weather Forecasting Web Application",
+  "main": "script.js", // Assuming this is your main JavaScript file
   "scripts": {
     "test": "jest"
   },
   "jest": {
-    "testEnvironment": "jest-environment-jsdom",
+    "testEnvironment": "jsdom",
     "setupFiles": [
       "./jest.setup.js"
     ],
@@ -16,17 +16,18 @@
     ]
   },
   "keywords": [],
-  "author": "",
+  "author": "Sena Negesse",
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
-    "jsdom": "^24.1.1",
+    "jsdom": "^29.7.0",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
     "text-encoding": "^0.7.0"
   },
   "dependencies": {
-    "moment": "^2.30.1",
-    "moment-timezone": "^0.5.45"
+    // Remove jest from dependencies as it's a devDependency
   }
 }
+

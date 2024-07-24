@@ -17,7 +17,7 @@ global.document = document;
 global.fetch = fetchMock;
 
 // Load your script file (adjust the path accordingly)
-const { getWeatherDataByCity, showWeatherData, updateBackgroundByTemperature, searchWeather } = require('../script');
+const { getWeatherDataByCity, showWeatherData, updateBackgroundByTemperature, searchWeather } = require('./script');
 
 // Define days and months for date formatting (adjust as needed)
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
