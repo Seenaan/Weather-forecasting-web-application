@@ -1,6 +1,6 @@
 # Weather App
 
-![Weather App Screenshot](/images/screenshot1.png)
+![Weather App Screenshot](/images/ss4.png.png)
 
 ## About
 
@@ -20,7 +20,10 @@ As a Portfolio Project for Holberton School, this application showcases skills i
 
 ## Screenshots
 
-Include screenshots of your application here.
+![Weather App Screenshot](/images/ss5.png)
+![Weather App Screenshot](/images/ss6.png)
+![Weather App Screenshot](/images/ss7.png)
+![Weather App Screenshot](/images/ss8.png)
 
 ## Installation
 
