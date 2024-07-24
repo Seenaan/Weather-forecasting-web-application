@@ -1,6 +1,6 @@
 # Weather App
 
-![Weather App Screenshot](/images/ss4.png.png)
+![Weather App Screenshot](/images/ss4.png)
 
 ## About
 
