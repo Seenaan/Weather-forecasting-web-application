@@ -1,0 +1,391 @@
+/* Importing Google Fonts, specifically Poppins with various font weights */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap');
+
+/* Universal selector to apply box-sizing to all elements, and reset margin and padding */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles for the body element */
+body {
+    background: url(images/main.jpg); /* Background image */
+    background-repeat: no-repeat; /* No repeat of the background image */
+    background-size: cover; /* Cover the entire viewport */
+    overflow: hidden; /* Prevent scrollbars */
+    height: 100vh; /* Full viewport height */
+    font-family: 'Poppins', sans-serif; /* Font family */
+}
+
+/* Background styles for various weather conditions */
+.weather-very-hot {
+    background: url('images/veryhot.jpg') no-repeat center center fixed; /* Fixed background image */
+    background-size: cover; /* Cover the entire container */
+}
+
+.weather-hot {
+    background: url('images/hot.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.weather-warm {
+    background: url('images/warm.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.weather-cool {
+    background: url('images/cool.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.weather-cold {
+    background: url('images/cold.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.weather-very-cold {
+    background: url('images/verycold.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Styles for the main container */
+.container {
+    padding: 20px 70px; /* Padding around the container */
+    color: #fff; /* Text color */
+}
+
+/* Layout for the current weather info section */
+.current-info {
+    display: flex; /* Flexbox layout */
+    justify-content: space-between; /* Space between items */
+    flex-wrap: wrap; /* Wrap items to new lines if necessary */
+}
+
+/* Styles for the date and time container */
+.date-container {
+    font-weight: 100; /* Light font weight */
+}
+
+.date-container .time {
+    font-size: 70px; /* Large font size for time */
+}
+
+.date-container #am-pm {
+    font-size: 30px; /* Smaller font size for AM/PM */
+    margin-left: 20px; /* Space between time and AM/PM */
+}
+
+.date-container .date {
+    font-size: 30px; /* Font size for the date */
+}
+
+/* Styles for the place container */
+.place-container {
+    text-align: end; /* Align text to the end (right) */
+}
+
+.place-container .time-zone {
+    font-size: 30px; /* Font size for the time zone */
+    font-weight: 100; /* Light font weight */
+}
+
+.place-container .country {
+    font-size: 12px; /* Font size for the country code */
+    font-weight: 700; /* Bold font weight */
+}
+
+/* Styles for the current weather items section */
+.current-info .others {
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Column layout */
+    background: rgba(24,24,27, 0.6); /* Semi-transparent background */
+    padding: 20px; /* Padding inside the container */
+    border-radius: 10px; /* Rounded corners */
+    margin: 10px 0; /* Margin around the container */
+    border: 1px solid #eee; /* Light border */
+}
+
+.current-info .others .weather-item {
+    display: flex; /* Flexbox layout */
+    flex-direction: row; /* Row layout */
+    justify-content: space-between; /* Space between items */
+}
+
+/* Styles for the future forecast section */
+.future-forecast {
+    background: rgba(24,24,27,0.8); /* Semi-transparent background */
+    padding: 25px; /* Padding inside the container */
+    position: fixed; /* Fixed position at the bottom */
+    bottom: 0; /* Align to the bottom of the viewport */
+    display: flex; /* Flexbox layout */
+    color: white; /* Text color */
+    width: 100%; /* Full width */
+    align-items: center; /* Align items to the center */
+    justify-content: center; /* Center items horizontally */
+    overflow-y: hidden; /* Hide vertical scrollbars */
+}
+
+/* Styles for the today forecast item */
+.future-forecast .today {
+    display: flex; /* Flexbox layout */
+    align-items: center; /* Align items to the center */
+    justify-content: center; /* Center items horizontally */
+    border: 1px solid #eee; /* Light border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Padding inside the container */
+    padding-right: 40px; /* Extra padding on the right */
+    background: rgba(0,0,0,0.2); /* Semi-transparent background */
+}
+
+/* Styles for the day and temperature in the today forecast */
+.future-forecast .today .day {
+    padding: 5px 15px; /* Padding inside the day element */
+    background: #3c3c44; /* Background color */
+    border-radius: 50px; /* Rounded corners */
+    text-align: center; /* Center text */
+}
+
+.future-forecast .today .temp {
+    font-size: 18px; /* Font size for temperature */
+    padding-top: 15px; /* Space above the temperature */
+}
+
+/* Styles for the 7-day weather forecast items */
+.future-forecast .weather-forecast {
+    display: flex; /* Flexbox layout */
+}
+
+.weather-forecast .weather-forecast-item {
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Column layout */
+    align-items: center; /* Align items to the center */
+    justify-content: center; /* Center items horizontally */
+    margin: 0 10px; /* Margin around each forecast item */
+    border: 1px solid #eee; /* Light border */
+    padding: 15px; /* Padding inside the container */
+    border-radius: 10px; /* Rounded corners */
+    background: rgba(0,0,0,0.2); /* Semi-transparent background */
+}
+
+/* Styles for the day and temperature in the weather forecast items */
+.weather-forecast .weather-forecast-item .day {
+    padding: 5px 15px; /* Padding inside the day element */
+    background: #3C3C44; /* Background color */
+    border-radius: 50px; /* Rounded corners */
+    text-align: center; /* Center text */
+}
+
+.weather-forecast .weather-forecast-item .temp {
+    font-weight: 100; /* Light font weight */
+    font-size: 12px; /* Font size for temperature */
+}
+
+/* Styles for the search box */
+.search-box {
+    position: relative; /* Relative positioning for child elements */
+    width: 50%; /* Width of the search box */
+    height: 55px; /* Height of the search box */
+    display: flex; /* Flexbox layout */
+    align-items: center; /* Align items to the center */
+}
+
+/* Styles for the search icon */
+.search-box i {
+    position: absolute; /* Absolute positioning within the search box */
+    left: 10px; /* Position from the left */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 20px; /* Font size for the icon */
+}
+
+/* Styles for the search input */
+.search-box input {
+    position: absolute; /* Absolute positioning within the search box */
+    width: 100%; /* Full width of the search box */
+    height: 100%; /* Full height of the search box */
+    border: 1px solid #eee; /* Border color */
+    background: rgba(0,0,0,0.2); /* Semi-transparent background */
+    outline: none; /* Remove default outline */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 22px; /* Font size for input text */
+    color: #fff; /* Text color */
+    font-weight: 500; /* Font weight */
+    text-transform: uppercase; /* Uppercase text */
+    padding: 0 48px 0 42px; /* Padding inside the input */
+}
+
+/* Additional styles for the search input text */
+.search-box input {
+    color: #fff; /* Text color */
+    text-transform: capitalize; /* Capitalize text */
+}
+
+/* Styles for the search button */
+.search-box button {
+    position: absolute; /* Absolute positioning within the search box */
+    right: 0; /* Position from the right */
+    width: 40px; /* Width of the button */
+    height: 100%; /* Full height of the search box */
+    background: transparent; /* Transparent background */
+    border: none; /* No border */
+    outline: none; /* Remove default outline */
+    font-size: 20px; /* Font size for the button text */
+    color: #fff; /* Text color */
+    padding: 0 40px 0 5px; /* Padding inside the button */
+    cursor: pointer; /* Pointer cursor */
+}
+
+/* Styles for the app container */
+#app {
+    max-width: 600px; /* Maximum width of the container */
+    margin: 0 auto; /* Center the container */
+    background: rgba(24,24,27, 0.6); /* Semi-transparent background */
+    padding: 20px; /* Padding inside the container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow */
+}
+
+/* Styles for the main heading */
+h2 {
+    text-align: center; /* Center the heading */
+    margin-bottom: 20px; /* Margin below the heading */
+}
+
+/* Styles for the search container */
+.search-container {
+    display: flex; /* Flexbox layout */
+    margin-bottom: 20px; /* Margin below the search container */
+    border: 1px solid #eee; /* Light border */
+    background: rgba(0,0,0,0.2); /* Semi-transparent background */
+}
+
+/* Styles for the search input in the search container */
+#searchInput {
+    flex: 1; /* Flexible width */
+    padding: 10px; /* Padding inside the input */
+    border: 1px transparent #ccc; /* Transparent border */
+    border-radius: 4px 0 0 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+}
+
+/* Styles for the search button in the search container */
+button {
+    padding: 10px 20px; /* Padding inside the button */
+    background-color: grey; /* Background color */
+    color: #fff; /* Text color */
+    border: none; /* No border */
+    border-radius: 0 4px 4px 0; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 16px; /* Font size */
+}
+
+/* Styles for button hover effect */
+button:hover {
+    background-color: #3d3f42; /* Darker background on hover */
+}
+
+/* Styles for the modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed position */
+    z-index: 1; /* Stack above other elements */
+    left: 0; /* Position from the left */
+    top: 0; /* Position from the top */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Scroll if needed */
+    background-color: rgb(0, 0, 0); /* Black background */
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    padding-top: 60px; /* Padding from the top */
+    text-decoration: none; /* Remove text decoration */
+}
+
+/* Styles for the modal content */
+.modal-content {
+    background-color: #3C3C44; /* Background color */
+    margin: 5% auto; /* Centered with margin from the top */
+    padding: 20px; /* Padding inside the modal */
+    border: 1px solid #888; /* Border color */
+    width: 80%; /* Width of the modal */
+    text-decoration: none; /* Remove text decoration */
+}
+
+/* Styles for the close button in the modal */
+.close-button {
+    color: #aaa; /* Light color */
+    float: right; /* Align to the right */
+    font-size: 28px; /* Font size */
+    font-weight: bold; /* Bold text */
+}
+
+/* Styles for close button hover and focus */
+.close-button:hover,
+.close-button:focus {
+    color: black; /* Darker color on hover/focus */
+    text-decoration: none; /* Remove text decoration */
+    cursor: pointer; /* Pointer cursor */
+}
+
+/* Styles for the about button */
+#aboutButton {
+    margin: 10px; /* Margin around the button */
+    padding: 10px 20px; /* Padding inside the button */
+    font-size: 16px; /* Font size */
+    border-color: transparent; /* Transparent border */
+    background-color: transparent; /* Transparent background */
+}
+
+/* Media query for screens smaller than 730px */
+@media only screen and (max-width: 730px) {
+    .container {
+        padding: 20px; /* Reduced padding */
+    }
+
+    .future-forecast {
+        justify-content: start; /* Align items to the start */
+        align-items: none; /* No alignment */
+        overflow-y: scroll; /* Scrollable vertical overflow */
+    }
+
+    .future-forecast .today .temp {
+        font-size: 16px; /* Smaller font size for temperature */
+    }
+
+    .date-container .time {
+        font-size: 50px; /* Smaller font size for time */
+    }
+
+    .date-container #am-pm {
+        font-size: 20px; /* Smaller font size for AM/PM */
+    }
+
+    .date-container .date {
+        font-size: 20px; /* Smaller font size for the date */
+    }
+
+    .place-container {
+        text-align: end; /* Align text to the end */
+        margin-top: 15px; /* Margin at the top */
+    }
+
+    .place-container .time-zone {
+        font-size: 20px; /* Smaller font size for the time zone */
+    }
+
+    .current-info .others {
+        padding: 12px; /* Reduced padding */
+    }
+
+    .current-info .others .weather-item {
+        font-size: 14px; /* Smaller font size for weather items */
+    }
+}
+
+/* Media query for screens smaller than 1400px */
+@media only screen and (max-width: 1400px) {
+    .future-forecast {
+        justify-content: start; /* Align items to the start */
+        align-items: none; /* No alignment */
+        overflow-x: scroll; /* Scrollable horizontal overflow */
+    }
+}
