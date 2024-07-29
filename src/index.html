@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metadata for character set, compatibility, and viewport settings -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link to external CSS files for styling -->
+    <link rel="stylesheet" href="/src/style.css"> <!-- Your custom styles -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"> <!-- Icon library -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0hG5q/P1kFF0h1ic9dOBQEKn1b8tu7Z+3Gp82pLb7q3gj2o8xMvWgJ+FgH6jzU1" crossorigin="anonymous"> <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Bootstrap Icons -->
+    
+    <!-- Title of the webpage -->
+    <title>Weather App</title>
+</head>
+<body>
+    <!-- Container for the main content of the weather app -->
+    <div class="container">
+        <!-- Section for current weather information and modal button -->
+        <div class="current-info">
+            <!-- Button to open the About modal -->
+            <button id="aboutButton">About</button>
+
+            <!-- Modal for showing information about the application -->
+            <div id="aboutModal" class="modal">
+                <div class="modal-content">
+                    <!-- Close button for the modal -->
+                    <span class="close-button">&times;</span>
+                    <h2>About This Application</h2>
+                    <!-- Information about the weather app -->
+                    <p>This weather app was inspired by my desire to create a practical application that helps users access accurate weather information easily.</p>
+                    <p>This project is part of my Portfolio Project for ALX-Africa.</p>
+                    <p>This is a web-based weather forecasting application that fetches and displays weather data for a specified city using the OpenWeatherMap API. It provides current weather conditions, a 7-day forecast, and updates the background based on the weather condition.</p>
+                    <p><strong>Features:</strong></p>
+                    <ul>
+                        <li>Fetches weather data based on city name input.</li>
+                        <li>Displays current weather details including humidity, pressure, wind speed, sunrise, and sunset times.</li>
+                        <li>Provides a 7-day weather forecast.</li>
+                        <li>Dynamically updates the background based on weather conditions.</li>
+                        <li>Allows searching for weather data by pressing the "Enter" key or clicking the search button.</li>
+                    </ul>
+                    <!-- Information about the team member and links to their profiles -->
+                    <p><strong>Team Member:</strong> Sena Negesse</p>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/sena-negesse-a462a81b8/?originalSubdomain=et" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="https://github.com/Seenaan" target="_blank"><i class="bi bi-github"></i> GitHub</a></li>
+                    </ul>
+                    <!-- Link to the GitHub repository of the project -->
+                    <p>GitHub Repository: <a href="https://github.com/Seenaan/Weather-forecasting-web-application" target="_blank"><i class="bi bi-github"></i> Weather App Repository</a></p>
+                </div>
+            </div>
+
+            <!-- Container for displaying date and time -->
+            <div class="date-container">
+                <!-- Display the current time -->
+                <div class="time" id="time">
+                    12:30 <span id="am-pm">PM</span>
+                </div>
+                <!-- Display the current date -->
+                <div class="date" id="date">
+                    Monday, 25 May
+                </div>
+
+                <!-- Container for displaying current weather details -->
+                <div class="others" id="current-weather-items">
+                    <!-- Weather details will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Container for displaying time zone and country information -->
+            <div class="place-container">
+                <!-- Display the time zone -->
+                <div class="time-zone" id="time-zone">Africa/Addis Ababa</div>
+                <!-- Display the country code -->
+                <div id="country" class="country">IN</div>
+            </div>
+        </div>
+
+        <!-- Search container with input and button -->
+        <div class="search-container">
+            <!-- Input field for entering city names -->
+            <input type="text" id="searchInput" placeholder="Enter city name">
+            <!-- Button to trigger the weather search -->
+            <button id="searchButton" onclick="searchWeather()">Search</button>
+        </div>
+
+        <!-- Container for displaying weather locations -->
+        <div id="locations"></div>
+    </div>
+
+    <!-- Section for displaying future weather forecast -->
+    <div class="future-forecast">
+        <!-- Display current temperature and weather icon -->
+        <div class="today" id="current-temp">
+            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
+            <div class="other">
+                <div class="day">Monday</div>
+                <div class="temp">Night - 25.6&#176; C</div>
+                <div class="temp">Day - 35.6&#176; C</div>
+            </div>
+        </div>
+
+        <!-- Display a 7-day weather forecast -->
+        <div class="weather-forecast" id="weather-forecast">
+            <!-- Individual weather forecast items -->
+            <div class="weather-forecast-item">
+                <div class="day">Tue</div>
+                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">Night - 25.6&#176; C</div>
+                <div class="temp">Day - 35.6&#176; C</div>
+            </div>
+            <div class="weather-forecast-item">
+                <div class="day">Wed</div>
+                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">Night - 25.6&#176; C</div>
+                <div class="temp">Day - 35.6&#176; C</div>
+            </div>
+            <div class="weather-forecast-item">
+                <div class="day">Thur</div>
+                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">Night - 25.6&#176; C</div>
+                <div class="temp">Day - 35.6&#176; C</div>
+            </div>
+            <div class="weather-forecast-item">
+                <div class="day">Fri</div>
+                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">Night - 25.6&#176; C</div>
+                <div class="temp">Day - 35.6&#176; C</div>
+            </div>
+            <div class="weather-forecast-item">
+                <div class="day">Sat</div>
+                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">Night - 25.6&#176; C</div>
+                <div class="temp">Day - 35.6&#176; C</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to Moment.js for date and time manipulation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Link to your custom JavaScript file -->
+    <script src="/src/script.js"></script>
+</body>
+</html>
